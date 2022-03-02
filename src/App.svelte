@@ -50,7 +50,7 @@
 	const names = stations.map( (element) => element["station_nm"] );
 	const epochMs = new Date('January 1, 2022 00:00:00').valueOf();
 	const now = Date.now();
-	const life = 8;
+	const life = 6;
 	let remain = new Array(life).fill(0);
 	const msInDay = 86400000;
 	const index = Math.floor((now - epochMs) / msInDay);
