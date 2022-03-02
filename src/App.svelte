@@ -32,6 +32,10 @@
 		font-family: 'Comic Sans MS', cursive;
 		font-size: 2em;
 	}
+	.graybutton {
+		background: gray;
+		color: white;
+	}
 </style>
 
 <script>
@@ -149,13 +153,6 @@
 	Chuldle
 </div>
 
-
-<div>
-	<button on:click={toggleIntro}>
-		info
-	</button>
-</div>
-
 <div>
     {#each guesses as {guess, disassembled}}
 		<div class="flex justify-center mb-1">
@@ -204,7 +201,7 @@
 			</div>
 			<p>입력한 역 이름의 자모 수가 네모칸의 개수와 다르면 오류 메시지가 뜹니다.</p>
 			<p>서울 지하철역 이름이 아닌 값을 입력해도 오류 메시지가 뜨게 됩니다.</p>
-			<button on:click={toggleIntro} style = "color:black">close</button>
+			<button on:click={toggleIntro} class="graybutton">close</button>
 		</div>
     </div>
 {/if}
@@ -217,5 +214,8 @@
 	>
 	<button on:click={stackGuesses}>
 		Enter
+	</button>
+	<button class="graybutton" on:click={toggleIntro}>
+		info
 	</button>
 </div>
