@@ -37,7 +37,6 @@
 <script>
 	import * as data from './data.json'
 	import Cell from './Cell.svelte';
-	import Finish from './Intro.svelte';
 
 
 	const process = (word) => {
