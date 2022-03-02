@@ -37,7 +37,7 @@
 <script>
 	import * as data from './data.json'
 	import Cell from './Cell.svelte';
-	import Finish from './Finish.svelte';
+	import Finish from './Intro.svelte';
 
 
 	const process = (word) => {
@@ -71,7 +71,7 @@
 			alert('역의 자모 수가 일치하지 않습니다.');
 			return;
 		}
-		let disassembled = calc(process(currentGuess));
+		let disassembled = calc(process(currentGuess), disSolution);
 		
 		guesses = [...guesses, {guess: currentGuess, disassembled: disassembled}];
 
@@ -88,21 +88,21 @@
 	const onKeyPress = e => {
 		if (e.charCode === 13) stackGuesses();
 	};
-	const calc = (arr) => {
+	const calc = (arr, dis) => {
 		let len = arr.length;
 		let res = new Array(arr.length).fill(0);
 		let vis = new Array(arr.length).fill(0);
 
 		let ans = []
 		for (let i = 0; i < len; i++) {
-			if(arr[i] === disSolution[i]){
+			if(arr[i] === dis[i]){
 				res[i] = 1;
 				vis[i] = 1;
 			}
 		}
 		for (let i = 0; i < len; i++) {
 			for (let j = 0; j < len; j++) {
-				if(arr[i] === disSolution[j] && res[i] === 0 && vis[j] === 0){
+				if(arr[i] === dis[j] && res[i] === 0 && vis[j] === 0){
 					res[i] = 2;
 					vis[j] = 1;
 				}
@@ -111,6 +111,10 @@
 		}
 		return ans;
 	};
+	let showIntro = false;
+	function toggleIntro(){
+		showIntro = !showIntro;
+	}
 	function getConstantVowel(kor) {
 		if (kor < '가' || kor > '힣'){
 			return [kor];
@@ -148,6 +152,12 @@
 
 
 <div>
+	<button on:click={toggleIntro}>
+		info
+	</button>
+</div>
+
+<div>
     {#each guesses as {guess, disassembled}}
 		<div class="flex justify-center mb-1">
 			{#each disassembled as letter}
@@ -176,17 +186,37 @@
 		</div>
     </div>
 {/if}
-    
-    
-    
+
+{#if showIntro}
+    <div class="backdrop">
+		<div class="modal">
+			<p>Chuldle은 서울 지하철 역을 맞추는 게임입니다.</p>
+			<p>답이 동작일 때, 행당이라고 입력한 경우 아래와 같이 표시됩니다.</p>
+			<div class="flex justify-center mb-1">
+				{#each calc(process('행당'), process('동작')) as letter}
+					<Cell info={letter}/>
+				{/each}
+			</div>
+			<p>답이 종로3가일 때, 종로4가라고 입력한 경우 아래와 같이 표시됩니다.</p>
+			<div class="flex justify-center mb-1">
+				{#each calc(process('종로3가'), process('종로4가')) as letter}
+					<Cell info={letter}/>
+				{/each}
+			</div>
+			<p>입력한 역 이름의 자모 수가 네모칸의 개수와 다르면 오류 메시지가 뜹니다.</p>
+			<p>서울 지하철역 이름이 아닌 값을 입력해도 오류 메시지가 뜨게 됩니다.</p>
+			<button on:click={toggleIntro} style = "color:black">close</button>
+		</div>
+    </div>
+{/if}
+
 
 <div class="flex justify-center mt-5">
-
-<input 
-on:keypress={onKeyPress}
-bind:value={currentGuess}
->
-<button on:click={stackGuesses}>
-	Enter
-</button>
+	<input 
+	on:keypress={onKeyPress}
+	bind:value={currentGuess}
+	>
+	<button on:click={stackGuesses}>
+		Enter
+	</button>
 </div>
