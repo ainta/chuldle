@@ -48,8 +48,7 @@
 	};
 
 	const stations = data["DATA"];
-	const easyStations = stations.filter( (element) => ["01호선","02호선","03호선","04호선","05호선","06호선","07호선","08호선","09호선","10호선"].includes(element["line_num"]))
-		.filter( (element) => process(element["station_nm"]).length <= 10).sort(() => Math.random() - 0.5);
+	const easyStations = stations.filter( (element) => process(element["station_nm"]).length <= 15).sort(() => Math.random() - 0.5);
 	const names = stations.map( (element) => element["station_nm"] );
 	const epochMs = new Date('January 1, 2022 00:00:00').valueOf();
 	const now = Date.now();
