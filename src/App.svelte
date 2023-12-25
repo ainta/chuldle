@@ -160,6 +160,39 @@
 		if(t[tn]!='')return [f[fn],s[sn],t[tn]];
 		return [f[fn],s[sn]]
 	}
+
+	const GREEN_BOX = '🟩';
+	const YELLOW_BOX = '🟨';
+	const GRAY_BOX = '⬜';
+
+	function generateSummary() {
+		let summary = '';
+		guesses.forEach(guess => {
+			guess.disassembled.forEach(letterInfo => {
+				switch (letterInfo.matched) {
+					case 1:
+						summary += GREEN_BOX;
+						break;
+					case 2:
+						summary += YELLOW_BOX;
+						break;
+					default:
+						summary += GRAY_BOX;
+				}
+			});
+			summary += '\n'; // New line for each guess
+		});
+		return summary.trim(); // Remove the last new line
+	}
+
+	function shareResult() {
+		const summary = generateSummary();
+		navigator.clipboard.writeText(summary).then(() => {
+			alert('Result copied to clipboard!');
+		}, (err) => {
+			alert('Failed to copy result: ', err);
+		});
+	}
 </script>
 
 
@@ -190,12 +223,13 @@
 
 
 {#if currentStatus === 1 || currentStatus === 2}
-    <div class="backdrop" class:succ={currentStatus===1} class:fail={currentStatus===2}>
+	<div class="backdrop" class:succ={currentStatus===1} class:fail={currentStatus===2}>
 		<div class="modal">
-		<p>{currentStatus===1 ? "Success": "Failure"}</p>
-		<p>{currentStatus===1 ?  guesses.length + " guesses": "Answer:" + solution}</p>
+			<p>{currentStatus===1 ? "Success": "Failure"}</p>
+			<p>{currentStatus===1 ?  guesses.length + " guesses": "Answer:" + solution}</p>
+			<button on:click={shareResult}>Share</button>
 		</div>
-    </div>
+	</div>
 {/if}
 
 {#if showIntro}
