@@ -47,17 +47,31 @@
 		return word.split('').reduce( (prv, cur) => [...prv, getConstantVowel(cur)], []).flat();
 	};
 
+	// Simple seedable LCG (Linear Congruential Generator)
+	function LCG(seed) {
+		return function() {
+			seed = (seed * 1664525 + 1013904223) % 4294967296;
+			return seed / 4294967296;
+		};
+	}
+
 	const stations = data["DATA"];
-	const easyStations = stations.filter( (element) => process(element["station_nm"]).length <= 15).sort(() => Math.random() - 0.5);
-	const names = stations.map( (element) => element["station_nm"] );
+	const easyStations = stations.filter((element) => process(element["station_nm"]).length <= 15);
+	const names = stations.map((element) => element["station_nm"]);
+
+	// Use the current day as the seed
 	const epochMs = new Date('January 1, 2022 00:00:00').valueOf();
 	const now = Date.now();
-	const life = 6;
-	let remain = new Array(life).fill(0);
 	const msInDay = 86400000;
-	const index = Math.floor((now - epochMs) / msInDay);
-	const nextday = (index + 1) * msInDay + epochMs;
-	const solution = easyStations[index % easyStations.length]["station_nm"];
+	const daysSinceEpoch = Math.floor((now - epochMs) / msInDay);
+	const seed = daysSinceEpoch;
+	const random = LCG(seed);
+
+	// Sort the stations array using the seeded random number generator
+	easyStations.sort(() => random() - 0.5);
+
+	const solution = easyStations[daysSinceEpoch % easyStations.length]["station_nm"];
+
 	let currentStatus = 0;
 
 	const disSolution = process(solution);
