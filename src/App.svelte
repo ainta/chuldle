@@ -50,8 +50,8 @@
 	// Simple seedable LCG (Linear Congruential Generator)
 	function LCG(seed) {
 		return function() {
-			seed = (seed * 1664525 + 1013904223) % 4294967296;
-			return seed / 4294967296;
+			seed = (seed * 1879 + 1013904223) % 65536;
+			return seed / 65536;
 		};
 	}
 
