@@ -80,8 +80,7 @@
 
 
 	const shuffledEasyStations = fisherYatesShuffle([...easyStations], random);
-
-	const solution = shuffledeasyStations[daysSinceEpoch % shuffledeasyStations.length]["station_nm"];
+	const solution = shuffledEasyStations[daysSinceEpoch % shuffledEasyStations.length]["station_nm"];
 	const life = 6;
 	let remain = new Array(life).fill(0);
 
