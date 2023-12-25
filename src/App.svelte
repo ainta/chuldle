@@ -167,7 +167,8 @@
 
 	function generateSummary() {
 		const gameNumber = seed - 723;
-		let summary = `Chuldle #${gameNumber}\n`;
+		let summary = `https://chuldle.netlify.app/`;
+		summary += `\nChuldle #${gameNumber}\n`;
 		guesses.forEach(guess => {
 			guess.disassembled.forEach(letterInfo => {
 				switch (letterInfo.matched) {
