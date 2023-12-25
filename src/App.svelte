@@ -166,7 +166,8 @@
 	const GRAY_BOX = '⬜';
 
 	function generateSummary() {
-		let summary = '';
+		const gameNumber = seed - 500;
+		let summary = `Chuldle #${gameNumber}\n`;
 		guesses.forEach(guess => {
 			guess.disassembled.forEach(letterInfo => {
 				switch (letterInfo.matched) {
@@ -225,9 +226,9 @@
 {#if currentStatus === 1 || currentStatus === 2}
 	<div class="backdrop" class:succ={currentStatus===1} class:fail={currentStatus===2}>
 		<div class="modal">
-			<p>{currentStatus===1 ? "Success": "Failure"}</p>
-			<p>{currentStatus===1 ?  guesses.length + " guesses": "Answer:" + solution}</p>
-			<button on:click={shareResult}>Share</button>
+			<p>{currentStatus===1 ? "Success" : "Failure"}</p>
+			<p>{currentStatus===1 ? guesses.length + " guesses" : "Answer: " + solution}</p>
+			<button on:click={shareResult} class="graybutton">Share</button>
 		</div>
 	</div>
 {/if}
