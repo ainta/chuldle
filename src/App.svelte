@@ -166,7 +166,7 @@
 	const GRAY_BOX = '⬜';
 
 	function generateSummary() {
-		const gameNumber = seed - 500;
+		const gameNumber = seed - 723;
 		let summary = `Chuldle #${gameNumber}\n`;
 		guesses.forEach(guess => {
 			guess.disassembled.forEach(letterInfo => {
