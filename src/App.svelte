@@ -54,6 +54,17 @@
 			return seed / 65536;
 		};
 	}
+	function fisherYatesShuffle(array, randomFunc) {
+		let i, j, temp;
+		for (i = array.length - 1; i > 0; i--) {
+			j = Math.floor(randomFunc() * (i + 1));
+			temp = array[i];
+			array[i] = array[j];
+			array[j] = temp;
+		}
+		return array;
+	}
+
 
 	const stations = data["DATA"];
 	const easyStations = stations.filter((element) => process(element["station_nm"]).length <= 15);
@@ -67,10 +78,10 @@
 	const seed = daysSinceEpoch;
 	const random = LCG(seed);
 
-	// Sort the stations array using the seeded random number generator
-	easyStations.sort(() => random() - 0.5);
 
-	const solution = easyStations[daysSinceEpoch % easyStations.length]["station_nm"];
+	const shuffledEasyStations = fisherYatesShuffle([...easyStations], random);
+
+	const solution = shuffledeasyStations[daysSinceEpoch % shuffledeasyStations.length]["station_nm"];
 	const life = 6;
 	let remain = new Array(life).fill(0);
 
