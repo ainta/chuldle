@@ -71,6 +71,8 @@
 	easyStations.sort(() => random() - 0.5);
 
 	const solution = easyStations[daysSinceEpoch % easyStations.length]["station_nm"];
+	const life = 6;
+	let remain = new Array(life).fill(0);
 
 	let currentStatus = 0;
 
