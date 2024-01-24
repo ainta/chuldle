@@ -36,6 +36,13 @@
 		background: gray;
 		color: white;
 	}
+
+	.github-link img {
+		width: 30px; /* Adjust the size as needed */
+		height: auto;
+		margin-right: 5px;
+		vertical-align: middle;
+	}
 </style>
 
 <script>
@@ -279,4 +286,7 @@
 	<button class="graybutton" on:click={toggleIntro}>
 		info
 	</button>
+	<a href="https://github.com/ainta/chuldle" target="_blank" class="github-link">
+		<img src="github-mark.png" alt="GitHub" />
+	</a>
 </div>
