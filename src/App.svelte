@@ -294,6 +294,8 @@
 			</div>
 			<p>입력한 역 이름의 자모 수가 네모칸의 개수와 다르면 오류 메시지가 뜹니다.</p>
 			<p>서울 지하철역 이름이 아닌 값을 입력해도 오류 메시지가 뜨게 됩니다.</p>
+			<p></p>
+			<p>정답은 <b>매일 자정</b> 업데이트되며, 하루 동안은 바뀌지 않습니다.</p>
 			<button on:click={toggleIntro} class="graybutton">close</button>
 		</div>
     </div>
