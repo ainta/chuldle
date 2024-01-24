@@ -12,9 +12,9 @@
     background: rgba(0, 0, 0, 0.8);
     }
     .modal {
-    padding: 10px;
+    padding: 30px;
     border-radius: 10px;
-    max-width: 400px;
+    width: 400px;
     margin: 10% auto;
     text-align: center;
     background: white;
@@ -35,14 +35,39 @@
 	.graybutton {
 		background: gray;
 		color: white;
+		padding: 5px 10px;
+	    border-radius: 10px;
 	}
 
 	.github-link img {
-		width: 30px; /* Adjust the size as needed */
+		width: 40px; /* Adjust the size as needed */
 		height: auto;
 		margin-right: 5px;
 		vertical-align: middle;
 	}
+	/* Style for the How to Play button */
+	.how-to-play-button {
+		background-color: #4CAF50; /* Green background */
+		color: white; /* White text */
+		padding: 10px 20px; /* Top/bottom padding of 10px, left/right padding of 20px */
+		border: none; /* No border */
+		text-align: center; /* Center text */
+		text-decoration: none; /* No underline */
+		display: inline-block; /* Allow inline block level properties */
+		font-size: 16px; /* Set font size */
+		margin: 2px 2px; /* Margin around the button */
+		cursor: pointer; /* Pointer cursor on hover */
+		border-radius: 8px; /* Rounded corners */
+		transition-duration: 0.4s; /* Smooth transition for hover effect */
+	}
+
+	/* Hover effect for the How to Play button */
+	.how-to-play-button:hover {
+		background-color: white; /* White background */
+		color: #4CAF50; /* Green text */
+		border: 1px solid #4CAF50; /* Green border */
+	}
+
 </style>
 
 <script>
@@ -276,17 +301,22 @@
 
 
 <div class="flex justify-center mt-5">
-	<input 
-	on:keypress={onKeyPress}
-	bind:value={currentGuess}
-	>
-	<button on:click={stackGuesses}>
-		Enter
-	</button>
-	<button class="graybutton" on:click={toggleIntro}>
-		info
-	</button>
-	<a href="https://github.com/ainta/chuldle" target="_blank" class="github-link">
-		<img src="github-mark.png" alt="GitHub" />
-	</a>
+    <input 
+        on:keypress={onKeyPress}
+        bind:value={currentGuess}
+    >
+    <button on:click={stackGuesses}>
+        Enter
+    </button>
+</div>
+
+<div class="flex justify-center mt-5">
+    <!-- Update the text within the button -->
+    <button class="how-to-play-button" on:click={toggleIntro}>
+        How to Play
+    </button>
+    <!-- GitHub link remains the same -->
+    <a href="https://github.com/ainta/chuldle" target="_blank" class="github-link">
+        <img src="github-mark.png" alt="GitHub" />
+    </a>
 </div>
