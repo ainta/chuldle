@@ -368,8 +368,3 @@
         <img src="github-mark.png" alt="GitHub" />
     </a>
 </div>
-<div class="flex justify-center mt-5">
-    <button on:click={togglePracticeMode}>
-        {practiceMode ? 'Switch to Regular Mode' : 'Switch to Practice Mode'}
-    </button>
-</div>
