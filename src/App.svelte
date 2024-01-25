@@ -112,13 +112,39 @@
 
 
 	const shuffledEasyStations = fisherYatesShuffle([...easyStations], random);
-	const solution = shuffledEasyStations[daysSinceEpoch % shuffledEasyStations.length]["station_nm"];
+	let practiceMode = false;
+	const randomizeSolution = () => {
+		const randomIndex = Math.floor(Math.random() * easyStations.length);
+		return easyStations[randomIndex]["station_nm"];
+	};
+
+	var solution = shuffledEasyStations[daysSinceEpoch % shuffledEasyStations.length]["station_nm"];
+    function togglePracticeMode() {
+        practiceMode = !practiceMode;
+        // Optionally reinitialize the game state here if needed
+		// Reinitialize game state
+        currentGuess = '';
+        guesses = [];
+        remain = new Array(life).fill(0);
+        currentStatus = 0;
+
+        // Update solution based on practice mode
+        if (practiceMode) {
+            solution = randomizeSolution();
+        } else {
+            solution = shuffledEasyStations[daysSinceEpoch % shuffledEasyStations.length]["station_nm"];
+        }
+
+        // Also update processed solution display
+        disSolution = process(solution);
+    }
+
 	const life = 6;
 	let remain = new Array(life).fill(0);
 
 	let currentStatus = 0;
 
-	const disSolution = process(solution);
+	var disSolution = process(solution);
 	const emptyInfo = {letter: '',matched: 0};
 	let currentGuess = '';
 	let guesses = [];
@@ -208,9 +234,14 @@
 	const GRAY_BOX = '⬜';
 
 	function generateSummary() {
-		const gameNumber = seed - 723;
 		let summary = `https://chuldle.netlify.app/`;
-		summary += `\nChuldle #${gameNumber}\n`;
+		if(practiceMode){
+			summary += `\nPractice\nAnswer: ${solution}\n`;
+		}
+		else{
+			const gameNumber = seed - 723;
+			summary += `\nChuldle #${gameNumber}\n`;
+		}
 		guesses.forEach(guess => {
 			guess.disassembled.forEach(letterInfo => {
 				switch (letterInfo.matched) {
@@ -237,13 +268,24 @@
 			alert('Failed to copy result: ', err);
 		});
 	}
+
+	function newPractice() {
+		togglePracticeMode();
+		togglePracticeMode();
+	}
 </script>
 
 
-
-<div class="title flex justify-center">
-	Chuldle
-</div>
+{#if practiceMode==0}
+	<div class="title flex justify-center">
+		Chuldle
+	</div>
+{/if}
+{#if practiceMode==1}
+	<div class="title flex justify-center">
+		Chuldle practice
+	</div>
+{/if}
 
 <div>
     {#each guesses as {guess, disassembled}}
@@ -272,6 +314,10 @@
 			<p>{currentStatus===1 ? "Success" : "Failure"}</p>
 			<p>{currentStatus===1 ? guesses.length + " guesses" : "Answer: " + solution}</p>
 			<button on:click={shareResult} class="graybutton">Share</button>
+
+			{#if practiceMode==1}
+				<button on:click={newPractice} class="graybutton">New Game</button>
+			{/if}
 		</div>
 	</div>
 {/if}
@@ -321,4 +367,9 @@
     <a href="https://github.com/ainta/chuldle" target="_blank" class="github-link">
         <img src="github-mark.png" alt="GitHub" />
     </a>
+</div>
+<div class="flex justify-center mt-5">
+    <button on:click={togglePracticeMode}>
+        {practiceMode ? 'Switch to Regular Mode' : 'Switch to Practice Mode'}
+    </button>
 </div>
