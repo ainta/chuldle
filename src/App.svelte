@@ -325,7 +325,7 @@
 {#if showIntro}
     <div class="backdrop">
 		<div class="modal">
-			<p>Chuldle은 서울 지하철 역을 맞추는 게임입니다.</p>
+			<p>Chuldle은 수도권 전철역을 맞추는 게임입니다.</p>
 			<p>답이 동작일 때, 행당이라고 입력한 경우 아래와 같이 표시됩니다.</p>
 			<div class="flex justify-center mb-1">
 				{#each calc(process('행당'), process('동작')) as letter}
@@ -339,7 +339,7 @@
 				{/each}
 			</div>
 			<p>입력한 역 이름의 자모 수가 네모칸의 개수와 다르면 오류 메시지가 뜹니다.</p>
-			<p>서울 지하철역 이름이 아닌 값을 입력해도 오류 메시지가 뜨게 됩니다.</p>
+			<p>수도권 전철역 이름이 아닌 값을 입력해도 오류 메시지가 뜨게 됩니다.</p>
 			<p></p>
 			<p>정답은 <b>매일 자정</b> 업데이트되며, 하루 동안은 바뀌지 않습니다.</p>
 			<button on:click={toggleIntro} class="graybutton">close</button>
